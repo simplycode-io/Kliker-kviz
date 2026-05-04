@@ -166,7 +166,7 @@ function initializeLanguageSelect() {
         setLanguage(e.target.value);
         translatePage(e.target.value);
     });
-}}
+}
 
 function renderQuestions() {
     adminList.innerHTML = '';
