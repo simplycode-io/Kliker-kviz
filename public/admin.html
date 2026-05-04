@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitleAdmin">Admin panel - Kviz</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <nav class="top-nav">
+        <div class="nav-brand" data-i18n="adminTitle">Admin panel</div>
+        <div class="nav-actions">
+            <select id="language-select" class="language-select"></select>
+            <button id="logout-btn" class="secondary-button" style="display: none;" data-i18n="logout">Logout</button>
+            <a href="index.html" class="secondary-button" data-i18n="navBackToQuiz">Nazad na kviz</a>
+        </div>
+    </nav>
+    <div id="app">
+        <div id="admin-login" class="admin-card">
+            <h1 data-i18n="adminAccess">Admin pristup</h1>
+            <p data-i18n="adminDescription">Unesite lozinku da biste pristupili uređivanju pitanja.</p>
+            <input type="password" id="admin-password" placeholder="Lozinka" data-i18n-placeholder="password">
+            <button id="admin-login-btn" data-i18n="login">Prijavi se</button>
+            <p id="admin-login-message"></p>
+        </div>
+        <div id="admin-panel" class="admin-card" style="display: none;">
+            <h1 data-i18n="adminTitle">Admin panel</h1>
+            <p data-i18n="adminDescription">Uredite pitanja i odgovore za kviz.</p>
+            <div class="admin-toolbar">
+                <div class="field-row">
+                    <label for="quiz-select" data-i18n="activeQuiz">Aktivan kviz:</label>
+                    <select id="quiz-select"></select>
+                </div>
+                <a id="leaderboard-link" href="leaderboard.html" class="secondary-button" data-i18n="leaderboard">Rang lista</a>
+            </div>
+            <div class="admin-controls">
+                <div class="create-quiz-row">
+                    <input type="text" id="create-quiz-name" placeholder="Naziv novog kviza" data-i18n-placeholder="newQuizName">
+                    <button id="create-quiz-btn" data-i18n="createQuiz">Kreiraj novi kviz</button>
+                </div>
+                <div class="create-quiz-row">
+                    <input type="text" id="copy-quiz-name" placeholder="Naziv kopije kviza" data-i18n-placeholder="copyQuizName">
+                    <button id="copy-quiz-btn" data-i18n="copyQuiz">Kopiraj u novi kviz</button>
+                </div>
+                <div id="quiz-link" class="quiz-link"></div>
+            </div>
+            <div id="admin-list"></div>
+            <div class="admin-actions">
+                <button id="add-question-btn" data-i18n="addQuestion">Dodaj novo pitanje</button>
+                <button id="save-questions-btn" data-i18n="saveChanges">Sačuvaj izmene</button>
+                <a href="index.html" class="secondary-button" data-i18n="navBackToQuiz">Nazad na kviz</a>
+            </div>
+            <p id="admin-message"></p>
+        </div>
+    </div>
+    <script src="i18n.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

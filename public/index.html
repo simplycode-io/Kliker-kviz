@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">Kviz za Hackathon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <nav class="top-nav">
+            <div class="nav-brand" data-i18n="title">Kviz za Hackathon</div>
+            <div class="nav-actions">
+                <select id="language-select" class="language-select"></select>
+                <button id="admin-link" class="secondary-button" data-i18n="navAdmin">Admin</button>
+            </div>
+        </nav>
+        <div id="start-screen">
+            <h1 data-i18n="startWelcome">Dobrodošli na kviz!</h1>
+            <p data-i18n="startDesc">Testirajte svoje znanje u 20 pitanja za 15 minuta.</p>
+            <input type="text" id="ime" placeholder="Ime" data-i18n-placeholder="ime" required>
+            <input type="text" id="prezime" placeholder="Prezime" data-i18n-placeholder="prezime" required>
+            <button id="start-btn" data-i18n="startBtn">Počni kviz</button>
+        </div>
+        <div id="quiz-screen" style="display: none;">
+            <h2 id="quiz-name" class="quiz-name"></h2>
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+                <span id="progress-text">Pitanje 1 od 20</span>
+            </div>
+            <div id="timer">Vreme: 15:00</div>
+            <div id="question-container">
+                <h2 id="question"></h2>
+                <div id="options"></div>
+            </div>
+            <div id="quiz-buttons">
+                <button id="prev-btn" disabled data-i18n="prev">Prethodno</button>
+                <button id="next-btn" disabled data-i18n="next">Sledeće pitanje</button>
+                <button id="finish-btn" style="display: none;" disabled data-i18n="finish">Završi kviz</button>
+            </div>
+        </div>
+        <div id="result-screen" style="display: none;">
+            <h1 data-i18n="results">Rezultati</h1>
+            <div id="result-card">
+                <p id="score-display"></p>
+                <p id="time-display"></p>
+            </div>
+            <button id="restart-btn" data-i18n="retry">Pokušaj ponovo</button>
+        </div>
+    </div>
+    <script src="i18n.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

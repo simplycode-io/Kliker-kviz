@@ -1,0 +1,1037 @@
+[
+  {
+    "id": "default",
+    "name": "Opšti kviz",
+    "questions": [
+      {
+        "question": "Koja je boja neba?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko nogu ima pauk?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koji je glavni grad Srbije?",
+        "options": [
+          "Novi Sad",
+          "Beograd",
+          "Niš",
+          "Kragujevac"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja je poznata kao 'kralj džungle'?",
+        "options": [
+          "Slon",
+          "Lav",
+          "Tigar",
+          "Majmun"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko dana ima u nedelji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja planeta je najbliža Suncu?",
+        "options": [
+          "Zemlja",
+          "Mars",
+          "Merkur",
+          "Venera"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta koristimo da bismo videli?",
+        "options": [
+          "Uši",
+          "Nos",
+          "Oči",
+          "Usta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća životinja na svetu?",
+        "options": [
+          "Slon",
+          "Kit",
+          "Nosorog",
+          "Žirafa"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko sati ima u danu?",
+        "options": [
+          "12",
+          "24",
+          "36",
+          "48"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja boja je jabuka?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta je H2O?",
+        "options": [
+          "Voda",
+          "Vazduh",
+          "Zemlja",
+          "Vatra"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko prstiju ima na jednoj ruci?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja je najbrža životinja na kopnu?",
+        "options": [
+          "Lav",
+          "Gepard",
+          "Zec",
+          "Konj"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je glavni sastojak hleba?",
+        "options": [
+          "Mleko",
+          "Brašno",
+          "Šećer",
+          "So"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko kontinenata ima na Zemlji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća ptica?",
+        "options": [
+          "Orao",
+          "Noj",
+          "Papagaj",
+          "Golub"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 10 - 3?",
+        "options": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja spava zimi?",
+        "options": [
+          "Medved",
+          "Lav",
+          "Majmun",
+          "Slon"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko meseci ima u godini?",
+        "options": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correct": 2
+      }
+    ],
+    "createdAt": "2026-05-04T15:28:02.141Z"
+  },
+  {
+    "id": "test-quiz",
+    "name": "Test Quiz",
+    "questions": [
+      {
+        "question": "Koja je boja neba?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko nogu ima pauk?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koji je glavni grad Srbije?",
+        "options": [
+          "Novi Sad",
+          "Beograd",
+          "Niš",
+          "Kragujevac"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja je poznata kao 'kralj džungle'?",
+        "options": [
+          "Slon",
+          "Lav",
+          "Tigar",
+          "Majmun"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko dana ima u nedelji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja planeta je najbliža Suncu?",
+        "options": [
+          "Zemlja",
+          "Mars",
+          "Merkur",
+          "Venera"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta koristimo da bismo videli?",
+        "options": [
+          "Uši",
+          "Nos",
+          "Oči",
+          "Usta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća životinja na svetu?",
+        "options": [
+          "Slon",
+          "Kit",
+          "Nosorog",
+          "Žirafa"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko sati ima u danu?",
+        "options": [
+          "12",
+          "24",
+          "36",
+          "48"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja boja je jabuka?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta je H2O?",
+        "options": [
+          "Voda",
+          "Vazduh",
+          "Zemlja",
+          "Vatra"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko prstiju ima na jednoj ruci?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja je najbrža životinja na kopnu?",
+        "options": [
+          "Lav",
+          "Gepard",
+          "Zec",
+          "Konj"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je glavni sastojak hleba?",
+        "options": [
+          "Mleko",
+          "Brašno",
+          "Šećer",
+          "So"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko kontinenata ima na Zemlji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća ptica?",
+        "options": [
+          "Orao",
+          "Noj",
+          "Papagaj",
+          "Golub"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 10 - 3?",
+        "options": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja spava zimi?",
+        "options": [
+          "Medved",
+          "Lav",
+          "Majmun",
+          "Slon"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko meseci ima u godini?",
+        "options": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correct": 2
+      }
+    ],
+    "createdAt": "2026-05-04T15:28:17.529Z"
+  },
+  {
+    "id": "playwright-quiz",
+    "name": "Playwright Quiz",
+    "questions": [
+      {
+        "question": "Koja je boja neba?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko nogu ima pauk?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koji je glavni grad Srbije?",
+        "options": [
+          "Novi Sad",
+          "Beograd",
+          "Niš",
+          "Kragujevac"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja je poznata kao 'kralj džungle'?",
+        "options": [
+          "Slon",
+          "Lav",
+          "Tigar",
+          "Majmun"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko dana ima u nedelji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja planeta je najbliža Suncu?",
+        "options": [
+          "Zemlja",
+          "Mars",
+          "Merkur",
+          "Venera"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta koristimo da bismo videli?",
+        "options": [
+          "Uši",
+          "Nos",
+          "Oči",
+          "Usta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća životinja na svetu?",
+        "options": [
+          "Slon",
+          "Kit",
+          "Nosorog",
+          "Žirafa"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko sati ima u danu?",
+        "options": [
+          "12",
+          "24",
+          "36",
+          "48"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja boja je jabuka?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta je H2O?",
+        "options": [
+          "Voda",
+          "Vazduh",
+          "Zemlja",
+          "Vatra"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko prstiju ima na jednoj ruci?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja je najbrža životinja na kopnu?",
+        "options": [
+          "Lav",
+          "Gepard",
+          "Zec",
+          "Konj"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je glavni sastojak hleba?",
+        "options": [
+          "Mleko",
+          "Brašno",
+          "Šećer",
+          "So"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko kontinenata ima na Zemlji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća ptica?",
+        "options": [
+          "Orao",
+          "Noj",
+          "Papagaj",
+          "Golub"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 10 - 3?",
+        "options": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja spava zimi?",
+        "options": [
+          "Medved",
+          "Lav",
+          "Majmun",
+          "Slon"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko meseci ima u godini?",
+        "options": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correct": 2
+      }
+    ],
+    "createdAt": "2026-05-04T15:29:14.223Z"
+  },
+  {
+    "id": "pera",
+    "name": "pera",
+    "questions": [
+      {
+        "question": "Pera kviz",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko nogu ima pauk?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koji je glavni grad Srbije?",
+        "options": [
+          "Novi Sad",
+          "Beograd",
+          "Niš",
+          "Kragujevac"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja je poznata kao 'kralj džungle'?",
+        "options": [
+          "Slon",
+          "Lav",
+          "Tigar",
+          "Majmun"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko dana ima u nedelji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja planeta je najbliža Suncu?",
+        "options": [
+          "Zemlja",
+          "Mars",
+          "Merkur",
+          "Venera"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta koristimo da bismo videli?",
+        "options": [
+          "Uši",
+          "Nos",
+          "Oči",
+          "Usta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća životinja na svetu?",
+        "options": [
+          "Slon",
+          "Kit",
+          "Nosorog",
+          "Žirafa"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko sati ima u danu?",
+        "options": [
+          "12",
+          "24",
+          "36",
+          "48"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja boja je jabuka?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta je H2O?",
+        "options": [
+          "Voda",
+          "Vazduh",
+          "Zemlja",
+          "Vatra"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko prstiju ima na jednoj ruci?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja je najbrža životinja na kopnu?",
+        "options": [
+          "Lav",
+          "Gepard",
+          "Zec",
+          "Konj"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je glavni sastojak hleba?",
+        "options": [
+          "Mleko",
+          "Brašno",
+          "Šećer",
+          "So"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko kontinenata ima na Zemlji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća ptica?",
+        "options": [
+          "Orao",
+          "Noj",
+          "Papagaj",
+          "Golub"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 10 - 3?",
+        "options": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja spava zimi?",
+        "options": [
+          "Medved",
+          "Lav",
+          "Majmun",
+          "Slon"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko meseci ima u godini?",
+        "options": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correct": 2
+      }
+    ],
+    "createdAt": "2026-05-04T15:31:23.354Z"
+  },
+  {
+    "id": "rr",
+    "name": "rr",
+    "questions": [
+      {
+        "question": "Koja je boja neba?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko nogu ima pauk?",
+        "options": [
+          "6",
+          "8",
+          "10",
+          "4"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koji je glavni grad Srbije?",
+        "options": [
+          "Novi Sad",
+          "Beograd",
+          "Niš",
+          "Kragujevac"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 2 + 2?",
+        "options": [
+          "3",
+          "4",
+          "5",
+          "6"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja je poznata kao 'kralj džungle'?",
+        "options": [
+          "Slon",
+          "Lav",
+          "Tigar",
+          "Majmun"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko dana ima u nedelji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja planeta je najbliža Suncu?",
+        "options": [
+          "Zemlja",
+          "Mars",
+          "Merkur",
+          "Venera"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta koristimo da bismo videli?",
+        "options": [
+          "Uši",
+          "Nos",
+          "Oči",
+          "Usta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća životinja na svetu?",
+        "options": [
+          "Slon",
+          "Kit",
+          "Nosorog",
+          "Žirafa"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko sati ima u danu?",
+        "options": [
+          "12",
+          "24",
+          "36",
+          "48"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja boja je jabuka?",
+        "options": [
+          "Plava",
+          "Zelena",
+          "Crvena",
+          "Žuta"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Šta je H2O?",
+        "options": [
+          "Voda",
+          "Vazduh",
+          "Zemlja",
+          "Vatra"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko prstiju ima na jednoj ruci?",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja je najbrža životinja na kopnu?",
+        "options": [
+          "Lav",
+          "Gepard",
+          "Zec",
+          "Konj"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je glavni sastojak hleba?",
+        "options": [
+          "Mleko",
+          "Brašno",
+          "Šećer",
+          "So"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koliko kontinenata ima na Zemlji?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correct": 2
+      },
+      {
+        "question": "Koja je najveća ptica?",
+        "options": [
+          "Orao",
+          "Noj",
+          "Papagaj",
+          "Golub"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Šta je 10 - 3?",
+        "options": [
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "correct": 1
+      },
+      {
+        "question": "Koja životinja spava zimi?",
+        "options": [
+          "Medved",
+          "Lav",
+          "Majmun",
+          "Slon"
+        ],
+        "correct": 0
+      },
+      {
+        "question": "Koliko meseci ima u godini?",
+        "options": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correct": 2
+      }
+    ],
+    "createdAt": "2026-05-04T15:43:43.227Z"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "kviz-aplikacija",
+  "version": "1.0.0",
+  "description": "Aplikacija za testiranje dece za hackathon",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

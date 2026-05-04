@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitleLeaderboard">Rang lista - Kviz</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <nav class="top-nav">
+        <div class="nav-brand" data-i18n="leaderboardTitle">Rang lista</div>
+        <div class="nav-actions">
+            <select id="language-select" class="language-select"></select>
+            <a href="admin.html" class="secondary-button" data-i18n="navBackToAdmin">Nazad na admin</a>
+            <button id="logout-btn" class="secondary-button" data-i18n="logout">Logout</button>
+        </div>
+    </nav>
+    <div id="leaderboard-app">
+        <div class="admin-card">
+            <h1 id="leaderboard-heading" data-i18n="leaderboardHeading">Rang lista takmičara</h1>
+            <p data-i18n="leaderboardDescription">Prikaži najbolje rezultate po broju tačnih odgovora i vremenu.</p>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th data-i18n="position">#</th>
+                        <th data-i18n="firstName">Ime</th>
+                        <th data-i18n="lastName">Prezime</th>
+                        <th data-i18n="correctAnswers">Tačno</th>
+                        <th data-i18n="timeSeconds">Vreme (s)</th>
+                        <th data-i18n="date">Datum</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <p id="leaderboard-message"></p>
+        </div>
+    </div>
+    <script src="i18n.js"></script>
+    <script src="leaderboard.js"></script>
+</body>
+</html>
