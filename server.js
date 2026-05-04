@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,6 +9,33 @@ const port = process.env.PORT || 3000;
 // Files for storing data
 const resultsFile = 'results.json';
 const quizzesFile = 'quizzes.json';
+
+// Admin authentication
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'tajna123';
+const adminTokens = new Map(); // Store active tokens
+const tokenExpiry = 24 * 60 * 60 * 1000; // 24 hours
+
+function generateToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
+function validateAdminToken(token) {
+  if (!adminTokens.has(token)) return false;
+  const data = adminTokens.get(token);
+  if (Date.now() > data.expiresAt) {
+    adminTokens.delete(token);
+    return false;
+  }
+  return true;
+}
+
+function requireAdminToken(req, res, next) {
+  const token = req.headers['x-admin-token'];
+  if (!token || !validateAdminToken(token)) {
+    return res.status(401).json({ success: false, error: 'Neautentifikovan pristup' });
+  }
+  next();
+}
 
 const defaultQuestions = [
   {
@@ -172,12 +200,33 @@ ensureFiles();
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/quizzes', (req, res) => {
+app.post('/admin/login', (req, res) => {
+  const { password } = req.body;
+  if (!password || password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ success: false, error: 'Pogrešna lozinka' });
+  }
+  const token = generateToken();
+  adminTokens.set(token, {
+    createdAt: Date.now(),
+    expiresAt: Date.now() + tokenExpiry
+  });
+  res.json({ success: true, token });
+});
+
+app.post('/admin/logout', (req, res) => {
+  const token = req.headers['x-admin-token'];
+  if (token) {
+    adminTokens.delete(token);
+  }
+  res.json({ success: true });
+});
+
+app.get('/quizzes', requireAdminToken, (req, res) => {
   const quizzes = loadQuizzes();
   res.json(quizzes.map(({ id, name, createdAt }) => ({ id, name, createdAt })));
 });
 
-app.post('/quizzes', (req, res) => {
+app.post('/quizzes', requireAdminToken, (req, res) => {
   const { name, sourceQuizId } = req.body;
   if (!name || typeof name !== 'string') {
     return res.status(400).json({ success: false, error: 'Neispravan naziv kviza' });
@@ -206,7 +255,7 @@ app.post('/quizzes', (req, res) => {
   res.json({ success: true, quiz: { id: newQuiz.id, name: newQuiz.name } });
 });
 
-app.get('/questions', (req, res) => {
+app.get('/questions', requireAdminToken, (req, res) => {
   const quizId = req.query.quizId || 'default';
   const quizzes = loadQuizzes();
   const quiz = quizzes.find((q) => q.id === quizId);
@@ -216,7 +265,7 @@ app.get('/questions', (req, res) => {
   res.json({ id: quiz.id, name: quiz.name, questions: quiz.questions });
 });
 
-app.post('/questions', (req, res) => {
+app.post('/questions', requireAdminToken, (req, res) => {
   const quizId = req.query.quizId;
   if (!quizId) {
     return res.status(400).json({ success: false, error: 'Nedostaje quizId' });

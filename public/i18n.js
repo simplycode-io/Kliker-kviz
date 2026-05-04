@@ -209,6 +209,13 @@ function getCurrentLanguage() {
     return getSavedLanguage();
 }
 
+function setLanguage(lang) {
+    if (TRANSLATIONS[lang]) {
+        localStorage.setItem(LANGUAGE_KEY, lang);
+        document.documentElement.lang = lang;
+    }
+}
+
 function replaceVars(text, vars) {
     if (!vars) {
         return text;

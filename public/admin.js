@@ -15,14 +15,24 @@ const copyQuizName = document.getElementById('copy-quiz-name');
 const copyQuizBtn = document.getElementById('copy-quiz-btn');
 const quizLink = document.getElementById('quiz-link');
 const leaderboardLink = document.getElementById('leaderboard-link');
+const languageSelect = document.getElementById('language-select');
 
-const ADMIN_PASSWORD = 'tajna123';
+let adminToken = null;
 let questions = [];
 let currentQuizId = 'default';
 
+function getAuthHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    ...(adminToken ? { 'x-admin-token': adminToken } : {})
+  };
+}
+
 async function loadQuizzes() {
     try {
-        const response = await fetch('/quizzes');
+        const response = await fetch('/quizzes', {
+            headers: getAuthHeaders()
+        });
         if (!response.ok) throw new Error('Neuspešno učitavanje kvizova.');
         const quizzes = await response.json();
         populateQuizSelect(quizzes);
@@ -48,7 +58,9 @@ function populateQuizSelect(quizzes) {
 
 async function loadQuestions() {
     try {
-        const response = await fetch(`/questions?quizId=${encodeURIComponent(currentQuizId)}`);
+        const response = await fetch(`/questions?quizId=${encodeURIComponent(currentQuizId)}`, {
+            headers: getAuthHeaders()
+        });
         if (!response.ok) throw new Error('Neuspešno učitavanje pitanja.');
         const data = await response.json();
         questions = data.questions || [];
@@ -78,6 +90,8 @@ function setAdminView(authenticated) {
         adminLoginContainer.style.display = 'none';
         adminPanelContainer.style.display = 'block';
         logoutBtn.style.display = 'inline-flex';
+        initializeLanguageSelect();
+        translatePage();
         loadQuizzes();
     } else {
         adminLoginContainer.style.display = 'block';
@@ -92,25 +106,67 @@ function showAdminPanel() {
     setAdminView(true);
 }
 
-function checkAdminPassword() {
-    const value = adminPasswordInput.value.trim();
-    if (value === ADMIN_PASSWORD) {
-        sessionStorage.setItem('admin-authenticated', 'true');
-        setAdminView(true);
-    } else {
-        adminLoginMessage.textContent = 'Pogrešna lozinka. Pokušajte ponovo.';
+async function checkAdminPassword() {
+    const password = adminPasswordInput.value.trim();
+    if (!password) {
+        adminLoginMessage.textContent = 'Unesite lozinku.';
+        return;
+    }
+    try {
+        const response = await fetch('/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+        const data = await response.json();
+        if (data.success) {
+            adminToken = data.token;
+            sessionStorage.setItem('admin-token', adminToken);
+            setAdminView(true);
+        } else {
+            adminLoginMessage.textContent = 'Pogrešna lozinka. Pokušajte ponovo.';
+        }
+    } catch (error) {
+        adminLoginMessage.textContent = 'Greška pri prijavi.';
+        console.error(error);
     }
 }
 
-function logoutAdmin() {
-    sessionStorage.removeItem('admin-authenticated');
+async function logoutAdmin() {
+    try {
+        await fetch('/admin/logout', {
+            method: 'POST',
+            headers: getAuthHeaders()
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    adminToken = null;
+    sessionStorage.removeItem('admin-token');
     setAdminView(false);
 }
 
 function initAdminAccess() {
-    const authenticated = sessionStorage.getItem('admin-authenticated') === 'true';
-    setAdminView(authenticated);
+    const savedToken = sessionStorage.getItem('admin-token');
+    if (savedToken) {
+        adminToken = savedToken;
+        setAdminView(true);
+    } else {
+        setAdminView(false);
+    }
 }
+
+function initializeLanguageSelect() {
+    const currentLang = getCurrentLanguage();
+    languageSelect.innerHTML = `
+        <option value="sr" ${currentLang === 'sr' ? 'selected' : ''}>Srpski</option>
+        <option value="en" ${currentLang === 'en' ? 'selected' : ''}>English</option>
+    `;
+    languageSelect.addEventListener('change', (e) => {
+        setLanguage(e.target.value);
+        translatePage(e.target.value);
+    });
+}}
 
 function renderQuestions() {
     adminList.innerHTML = '';
@@ -183,7 +239,7 @@ async function saveQuestions() {
     try {
         const response = await fetch(`/questions?quizId=${encodeURIComponent(currentQuizId)}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(updatedQuestions)
         });
         const data = await response.json();
@@ -207,7 +263,7 @@ async function createQuiz() {
     try {
         const response = await fetch('/quizzes', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({ name })
         });
         const data = await response.json();
@@ -234,7 +290,7 @@ async function copyQuiz() {
     try {
         const response = await fetch('/quizzes', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify({ name, sourceQuizId: currentQuizId })
         });
         const data = await response.json();
