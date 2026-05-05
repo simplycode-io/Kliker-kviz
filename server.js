@@ -221,7 +221,7 @@ app.post('/admin/logout', (req, res) => {
   res.json({ success: true });
 });
 
-app.get('/quizzes', requireAdminToken, (req, res) => {
+app.get('/quizzes', (req, res) => {
   const quizzes = loadQuizzes();
   res.json(quizzes.map(({ id, name, createdAt }) => ({ id, name, createdAt })));
 });

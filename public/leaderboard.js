@@ -20,17 +20,20 @@ function initializeLanguageSelect() {
     });
 }
 
-function isAdminAuthenticated() {
-    return sessionStorage.getItem('admin-authenticated') === 'true';
-}
-
-function redirectToAdmin() {
-    window.location.href = 'admin.html';
+function getAdminToken() {
+    return sessionStorage.getItem('admin-token');
 }
 
 function logoutAdmin() {
-    sessionStorage.removeItem('admin-authenticated');
-    redirectToAdmin();
+    const token = getAdminToken();
+    if (token) {
+        fetch('/admin/logout', {
+            method: 'POST',
+            headers: { 'x-admin-token': token }
+        }).catch(e => console.error(e));
+    }
+    sessionStorage.removeItem('admin-token');
+    window.location.href = 'admin.html';
 }
 
 function formatDate(iso) {
@@ -45,11 +48,6 @@ function formatDate(iso) {
 }
 
 async function loadLeaderboard() {
-    if (!isAdminAuthenticated()) {
-        redirectToAdmin();
-        return;
-    }
-
     try {
         let quizName = null;
         if (quizId) {
@@ -95,6 +93,7 @@ async function loadLeaderboard() {
 }
 
 logoutBtn.addEventListener('click', logoutAdmin);
+logoutBtn.style.display = getAdminToken() ? 'inline-flex' : 'none';
 initializeLanguageSelect();
 translatePage();
 loadLeaderboard();
