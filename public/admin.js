@@ -13,6 +13,9 @@ const createQuizName = document.getElementById('create-quiz-name');
 const createQuizBtn = document.getElementById('create-quiz-btn');
 const copyQuizName = document.getElementById('copy-quiz-name');
 const copyQuizBtn = document.getElementById('copy-quiz-btn');
+const renameQuizName = document.getElementById('rename-quiz-name');
+const renameQuizBtn = document.getElementById('rename-quiz-btn');
+const deleteQuizBtn = document.getElementById('delete-quiz-btn');
 const quizLink = document.getElementById('quiz-link');
 const leaderboardLink = document.getElementById('leaderboard-link');
 const languageSelect = document.getElementById('language-select');
@@ -308,10 +311,84 @@ async function copyQuiz() {
     }
 }
 
+async function renameQuiz() {
+    const newName = renameQuizName.value.trim();
+    if (!newName) {
+        adminMessage.textContent = 'Unesite novo ime za kviz.';
+        return;
+    }
+    if (currentQuizId === 'default') {
+        adminMessage.textContent = 'Ne možete preimenovati podrazumevani kviz.';
+        return;
+    }
+    try {
+        const response = await fetch(`/quizzes/${encodeURIComponent(currentQuizId)}`, {
+            method: 'PATCH',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ name: newName })
+        });
+        const data = await response.json();
+        if (data.success) {
+            adminMessage.textContent = `Kviz je preimenovan u "${data.quiz.name}".`;
+            renameQuizName.value = '';
+            await loadQuizzes();
+        } else {
+            adminMessage.textContent = data.error ? `Greška: ${data.error}` : 'Greška pri preimenovanju kviza.';
+        }
+    } catch (error) {
+        adminMessage.textContent = 'Greška pri preimenovanju kviza.';
+        console.error(error);
+    }
+}
+
+async function deleteQuiz() {
+    if (currentQuizId === 'default') {
+        adminMessage.textContent = 'Ne možete obrisati podrazumevani kviz.';
+        return;
+    }
+    const quizzes = await getQuizzesForPrompt();
+    const currentQuizName = quizzes.find(q => q.id === currentQuizId)?.name || 'Nepoznat kviz';
+    const confirmed = confirm(`Da li ste sigurni da želite da obrišete kviz "${currentQuizName}"? Ova akcija se ne može ponoviti.`);
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(`/quizzes/${encodeURIComponent(currentQuizId)}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders()
+        });
+        const data = await response.json();
+        if (data.success) {
+            adminMessage.textContent = 'Kviz je obrisan.';
+            renameQuizName.value = '';
+            await loadQuizzes();
+        } else {
+            adminMessage.textContent = data.error ? `Greška: ${data.error}` : 'Greška pri brisanju kviza.';
+        }
+    } catch (error) {
+        adminMessage.textContent = 'Greška pri brisanju kviza.';
+        console.error(error);
+    }
+}
+
+async function getQuizzesForPrompt() {
+    try {
+        const response = await fetch('/quizzes', {
+            headers: getAuthHeaders()
+        });
+        if (!response.ok) throw new Error('Neuspešno učitavanje kvizova.');
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
 addQuestionBtn.addEventListener('click', addQuestion);
 saveQuestionsBtn.addEventListener('click', saveQuestions);
 createQuizBtn.addEventListener('click', createQuiz);
 copyQuizBtn.addEventListener('click', copyQuiz);
+renameQuizBtn.addEventListener('click', renameQuiz);
+deleteQuizBtn.addEventListener('click', deleteQuiz);
 quizSelect.addEventListener('change', () => setCurrentQuiz(quizSelect.value));
 adminLoginBtn.addEventListener('click', checkAdminPassword);
 logoutBtn.addEventListener('click', logoutAdmin);

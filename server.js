@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
-const { getQuizzes, getQuiz, saveQuiz, saveResult, getResults } = require('./db');
+const { getQuizzes, getQuiz, saveQuiz, deleteQuiz, updateQuizName, saveResult, getResults } = require('./db');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -235,6 +235,43 @@ app.post('/quizzes', requireAdminToken, (req, res) => {
 
   saveQuiz(id, name.trim(), questions);
   res.json({ success: true, quiz: { id, name: name.trim() } });
+});
+
+app.patch('/quizzes/:id', requireAdminToken, (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  
+  if (!name || typeof name !== 'string') {
+    return res.status(400).json({ success: false, error: 'Neispravan naziv kviza' });
+  }
+  
+  if (id === 'default') {
+    return res.status(403).json({ success: false, error: 'Ne možete preimenovati podrazumevani kviz' });
+  }
+  
+  const quiz = getQuiz(id);
+  if (!quiz) {
+    return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
+  }
+  
+  updateQuizName(id, name.trim());
+  res.json({ success: true, quiz: { id, name: name.trim() } });
+});
+
+app.delete('/quizzes/:id', requireAdminToken, (req, res) => {
+  const { id } = req.params;
+  
+  if (id === 'default') {
+    return res.status(403).json({ success: false, error: 'Ne možete obrisati podrazumevani kviz' });
+  }
+  
+  const quiz = getQuiz(id);
+  if (!quiz) {
+    return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
+  }
+  
+  deleteQuiz(id);
+  res.json({ success: true });
 });
 
 app.get('/questions', (req, res) => {

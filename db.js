@@ -60,6 +60,11 @@ function deleteQuiz(id) {
   stmt.run(id);
 }
 
+function updateQuizName(id, newName) {
+  const stmt = db.prepare('UPDATE quizzes SET name = ? WHERE id = ?');
+  stmt.run(newName, id);
+}
+
 // Results functions
 function saveResult(quizId, ime, prezime, score, vreme, answers) {
   const stmt = db.prepare(`
@@ -89,6 +94,7 @@ module.exports = {
   getQuiz,
   saveQuiz,
   deleteQuiz,
+  updateQuizName,
   saveResult,
   getResults
 };

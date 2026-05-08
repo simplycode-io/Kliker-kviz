@@ -60,6 +60,8 @@ const TRANSLATIONS = {
         copyError: 'Greška pri kopiranju kviza.',
         noQuizError: 'Unesite naziv za novi kviz.',
         noCopyName: 'Unesite naziv za novu kopiju kviza.',
+        renameQuiz: 'Preimenuji kviz',
+        deleteQuiz: 'Obriši kviz',
         logout: 'Logout',
         quizLinkText: 'Aktivan kviz: {quizName} — {openLink}'
     },
@@ -124,6 +126,8 @@ const TRANSLATIONS = {
         copyError: 'Error copying quiz.',
         noQuizError: 'Enter a name for the new quiz.',
         noCopyName: 'Enter a name for the quiz copy.',
+        renameQuiz: 'Rename quiz',
+        deleteQuiz: 'Delete quiz',
         logout: 'Logout',
         quizLinkText: 'Active quiz: {quizName} — {openLink}'
     },
@@ -188,6 +192,8 @@ const TRANSLATIONS = {
         copyError: 'Грешка при копирање на квизот.',
         noQuizError: 'Внесете име за новиот квиз.',
         noCopyName: 'Внесете име за копијата на квизот.',
+        renameQuiz: 'Преимнувај квиз',
+        deleteQuiz: 'Избриши квиз',
         logout: 'Одјави се',
         quizLinkText: 'Активен квиз: {quizName} — {openLink}'
     }
