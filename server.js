@@ -255,7 +255,7 @@ app.post('/quizzes', requireAdminToken, (req, res) => {
   res.json({ success: true, quiz: { id: newQuiz.id, name: newQuiz.name } });
 });
 
-app.get('/questions', requireAdminToken, (req, res) => {
+app.get('/questions', (req, res) => {
   const quizId = req.query.quizId || 'default';
   const quizzes = loadQuizzes();
   const quiz = quizzes.find((q) => q.id === quizId);
