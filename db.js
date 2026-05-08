@@ -56,8 +56,13 @@ function saveQuiz(id, name, questions) {
 }
 
 function deleteQuiz(id) {
-  const stmt = db.prepare('DELETE FROM quizzes WHERE id = ?');
-  stmt.run(id);
+  // First delete all results for this quiz (due to foreign key constraint)
+  const deleteResults = db.prepare('DELETE FROM results WHERE quizId = ?');
+  deleteResults.run(id);
+  
+  // Then delete the quiz itself
+  const deleteQuizStmt = db.prepare('DELETE FROM quizzes WHERE id = ?');
+  deleteQuizStmt.run(id);
 }
 
 function updateQuizName(id, newName) {
