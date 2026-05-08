@@ -2,7 +2,7 @@ const Database = require('better-sqlite3');
 const path = require('path');
 
 // Create or open database
-const dbPath = path.join(__dirname, 'kviz.db');
+const dbPath = process.env.DB_PATH || path.join('/data', 'kviz.db');
 const db = new Database(dbPath);
 
 // Enable foreign keys
