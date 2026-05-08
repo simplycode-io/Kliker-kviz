@@ -1,14 +1,18 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const crypto = require('crypto');
-const { getQuizzes, getQuiz, saveQuiz, saveResult, getResults } = require('./db');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Files for storing data - NOW USING DATABASE
+// Files for storing data
+const resultsFile = 'results.json';
+const quizzesFile = 'quizzes.json';
+
+// Admin authentication
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'tajna123';
-const adminTokens = new Map();
+const adminTokens = new Map(); // Store active tokens
 const tokenExpiry = 24 * 60 * 60 * 1000; // 24 hours
 
 function generateToken() {
@@ -146,23 +150,26 @@ const defaultQuizzes = [
 ];
 
 function readJson(filePath, fallback) {
-  // Deprecated - using database instead
-  return fallback;
+  if (!fs.existsSync(filePath)) {
+    return fallback;
+  }
+  try {
+    return JSON.parse(fs.readFileSync(filePath));
+  } catch (error) {
+    return fallback;
+  }
 }
 
 function writeJson(filePath, data) {
-  // Deprecated - using database instead
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
 function loadQuizzes() {
-  return getQuizzes();
+  return readJson(quizzesFile, defaultQuizzes);
 }
 
-function initializeDefaultQuiz() {
-  const existing = getQuiz('default');
-  if (!existing) {
-    saveQuiz('default', 'Opšti kviz', defaultQuestions);
-  }
+function saveQuizzes(quizzes) {
+  writeJson(quizzesFile, quizzes);
 }
 
 function generateQuizId(name, existingIds) {
@@ -180,8 +187,12 @@ function generateQuizId(name, existingIds) {
 }
 
 function ensureFiles() {
-  // Deprecated - database initializes on load
-  initializeDefaultQuiz();
+  if (!fs.existsSync(resultsFile)) {
+    writeJson(resultsFile, []);
+  }
+  if (!fs.existsSync(quizzesFile)) {
+    saveQuizzes(defaultQuizzes);
+  }
 }
 
 ensureFiles();
@@ -212,7 +223,7 @@ app.post('/admin/logout', (req, res) => {
 
 app.get('/quizzes', (req, res) => {
   const quizzes = loadQuizzes();
-  res.json(quizzes.map(q => ({ id: q.id, name: q.name, createdAt: q.createdAt })));
+  res.json(quizzes.map(({ id, name, createdAt }) => ({ id, name, createdAt })));
 });
 
 app.post('/quizzes', requireAdminToken, (req, res) => {
@@ -221,29 +232,37 @@ app.post('/quizzes', requireAdminToken, (req, res) => {
     return res.status(400).json({ success: false, error: 'Neispravan naziv kviza' });
   }
   const quizzes = loadQuizzes();
-  const ids = quizzes.map(q => q.id);
+  const ids = quizzes.map((quiz) => quiz.id);
   const id = generateQuizId(name, ids);
   let questions = defaultQuestions;
 
   if (sourceQuizId) {
-    const sourceQuiz = getQuiz(sourceQuizId);
+    const sourceQuiz = quizzes.find((quiz) => quiz.id === sourceQuizId);
     if (!sourceQuiz) {
       return res.status(400).json({ success: false, error: 'Kviz za kopiranje nije pronađen' });
     }
-    questions = JSON.parse(sourceQuiz.questions);
+    questions = JSON.parse(JSON.stringify(sourceQuiz.questions));
   }
 
-  saveQuiz(id, name.trim(), questions);
-  res.json({ success: true, quiz: { id, name: name.trim() } });
+  const newQuiz = {
+    id,
+    name: name.trim(),
+    questions,
+    createdAt: new Date().toISOString()
+  };
+  quizzes.push(newQuiz);
+  saveQuizzes(quizzes);
+  res.json({ success: true, quiz: { id: newQuiz.id, name: newQuiz.name } });
 });
 
 app.get('/questions', (req, res) => {
   const quizId = req.query.quizId || 'default';
-  const quiz = getQuiz(quizId);
+  const quizzes = loadQuizzes();
+  const quiz = quizzes.find((q) => q.id === quizId);
   if (!quiz) {
     return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
   }
-  res.json({ id: quiz.id, name: quiz.name, questions: JSON.parse(quiz.questions) });
+  res.json({ id: quiz.id, name: quiz.name, questions: quiz.questions });
 });
 
 app.post('/questions', requireAdminToken, (req, res) => {
@@ -255,41 +274,35 @@ app.post('/questions', requireAdminToken, (req, res) => {
   if (!Array.isArray(newQuestions)) {
     return res.status(400).json({ success: false, error: 'Neispravan format pitanja' });
   }
-  const quiz = getQuiz(quizId);
+  const quizzes = loadQuizzes();
+  const quiz = quizzes.find((q) => q.id === quizId);
   if (!quiz) {
     return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
   }
-  saveQuiz(quizId, quiz.name, newQuestions);
+  quiz.questions = newQuestions;
+  saveQuizzes(quizzes);
   res.json({ success: true });
 });
 
 app.post('/save-result', (req, res) => {
   const { ime, prezime, score, vreme, answers, quizId = 'default' } = req.body;
-  
-  const quiz = getQuiz(quizId);
-  if (!quiz) {
-    return res.status(400).json({ success: false, error: 'Kviz nije pronađen' });
-  }
-  
-  saveResult(quizId, ime, prezime, score, vreme, answers);
+  const results = readJson(resultsFile, []);
+  results.push({ quizId, ime, prezime, score, vreme, answers, timestamp: new Date().toISOString() });
+  writeJson(resultsFile, results);
   res.json({ success: true });
 });
 
 app.get('/results', (req, res) => {
   const quizId = req.query.quizId;
-  const results = getResults(quizId);
-  
-  const formatted = results.map(r => ({
-    quizId: r.quizId,
-    ime: r.ime,
-    prezime: r.prezime,
-    score: r.score,
-    vreme: r.vreme,
-    answers: JSON.parse(r.answers),
-    timestamp: r.timestamp
-  }));
-  
-  res.json(formatted);
+  let results = readJson(resultsFile, []);
+  if (quizId) {
+    results = results.filter((result) => result.quizId === quizId);
+  }
+  const sortedResults = results.slice().sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return a.vreme - b.vreme;
+  });
+  res.json(sortedResults);
 });
 
 app.listen(port, '0.0.0.0', () => {
