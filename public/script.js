@@ -137,6 +137,14 @@ async function loadQuestions() {
         currentQuizName = data.name || 'Kviz';
         timeLeft = data.duration || 900; // Use quiz duration from API, default to 15 minutes
         document.getElementById('quiz-name').textContent = currentQuizName;
+        
+        // Update start description with actual duration
+        const minutes = Math.floor(timeLeft / 60);
+        const language = getCurrentLanguage?.() || 'sr';
+        const descText = language === 'en' 
+            ? `Test your knowledge in ${questions.length} questions in ${minutes} minutes.`
+            : `Testirajte svoje znanje u ${questions.length} pitanja za ${minutes} minuta.`;
+        document.getElementById('start-description').textContent = descText;
     } catch (error) {
         console.error('Greška pri učitavanju pitanja:', error);
         questions = defaultQuestions;
