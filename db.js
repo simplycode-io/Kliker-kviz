@@ -16,9 +16,17 @@ function initializeDatabase() {
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       questions TEXT NOT NULL,
+      duration INTEGER DEFAULT 900,
       createdAt TEXT NOT NULL
     )
   `);
+
+  // Add duration column if it doesn't exist (migration)
+  try {
+    db.prepare('SELECT duration FROM quizzes LIMIT 1').get();
+  } catch (error) {
+    db.exec('ALTER TABLE quizzes ADD COLUMN duration INTEGER DEFAULT 900');
+  }
 
   // Create results table
   db.exec(`
@@ -47,12 +55,12 @@ function getQuiz(id) {
   return stmt.get(id);
 }
 
-function saveQuiz(id, name, questions) {
+function saveQuiz(id, name, questions, duration = 900) {
   const stmt = db.prepare(`
-    INSERT OR REPLACE INTO quizzes (id, name, questions, createdAt)
-    VALUES (?, ?, ?, ?)
+    INSERT OR REPLACE INTO quizzes (id, name, questions, duration, createdAt)
+    VALUES (?, ?, ?, ?, ?)
   `);
-  stmt.run(id, name, JSON.stringify(questions), new Date().toISOString());
+  stmt.run(id, name, JSON.stringify(questions), duration, new Date().toISOString());
 }
 
 function deleteQuiz(id) {
@@ -68,6 +76,11 @@ function deleteQuiz(id) {
 function updateQuizName(id, newName) {
   const stmt = db.prepare('UPDATE quizzes SET name = ? WHERE id = ?');
   stmt.run(newName, id);
+}
+
+function updateQuizDuration(id, duration) {
+  const stmt = db.prepare('UPDATE quizzes SET duration = ? WHERE id = ?');
+  stmt.run(duration, id);
 }
 
 // Results functions
@@ -100,6 +113,7 @@ module.exports = {
   saveQuiz,
   deleteQuiz,
   updateQuizName,
+  updateQuizDuration,
   saveResult,
   getResults
 };

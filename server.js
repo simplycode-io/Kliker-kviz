@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
-const { getQuizzes, getQuiz, saveQuiz, deleteQuiz, updateQuizName, saveResult, getResults } = require('./db');
+const { getQuizzes, getQuiz, saveQuiz, deleteQuiz, updateQuizName, updateQuizDuration, saveResult, getResults } = require('./db');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -212,7 +212,7 @@ app.post('/admin/logout', (req, res) => {
 
 app.get('/quizzes', (req, res) => {
   const quizzes = loadQuizzes();
-  res.json(quizzes.map(q => ({ id: q.id, name: q.name, createdAt: q.createdAt })));
+  res.json(quizzes.map(q => ({ id: q.id, name: q.name, duration: q.duration || 900, createdAt: q.createdAt })));
 });
 
 app.post('/quizzes', requireAdminToken, (req, res) => {
@@ -274,13 +274,30 @@ app.delete('/quizzes/:id', requireAdminToken, (req, res) => {
   res.json({ success: true });
 });
 
+app.patch('/quizzes/:id/duration', requireAdminToken, (req, res) => {
+  const { id } = req.params;
+  const { duration } = req.body;
+  
+  if (!duration || typeof duration !== 'number' || duration <= 0) {
+    return res.status(400).json({ success: false, error: 'Neispravan format vremena' });
+  }
+  
+  const quiz = getQuiz(id);
+  if (!quiz) {
+    return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
+  }
+  
+  updateQuizDuration(id, duration);
+  res.json({ success: true, duration });
+});
+
 app.get('/questions', (req, res) => {
   const quizId = req.query.quizId || 'default';
   const quiz = getQuiz(quizId);
   if (!quiz) {
     return res.status(404).json({ success: false, error: 'Kviz nije pronađen' });
   }
-  res.json({ id: quiz.id, name: quiz.name, questions: JSON.parse(quiz.questions) });
+  res.json({ id: quiz.id, name: quiz.name, duration: quiz.duration || 900, questions: JSON.parse(quiz.questions) });
 });
 
 app.post('/questions', requireAdminToken, (req, res) => {

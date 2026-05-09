@@ -16,6 +16,8 @@ const copyQuizBtn = document.getElementById('copy-quiz-btn');
 const renameQuizName = document.getElementById('rename-quiz-name');
 const renameQuizBtn = document.getElementById('rename-quiz-btn');
 const deleteQuizBtn = document.getElementById('delete-quiz-btn');
+const quizDuration = document.getElementById('quiz-duration');
+const setDurationBtn = document.getElementById('set-duration-btn');
 const quizLink = document.getElementById('quiz-link');
 const leaderboardLink = document.getElementById('leaderboard-link');
 const languageSelect = document.getElementById('language-select');
@@ -67,6 +69,7 @@ async function loadQuestions() {
         if (!response.ok) throw new Error('Neuspešno učitavanje pitanja.');
         const data = await response.json();
         questions = data.questions || [];
+        quizDuration.value = data.duration || 900;
         renderQuestions();
         updateQuizLink(data.id, data.name);
     } catch (error) {
@@ -383,12 +386,37 @@ async function getQuizzesForPrompt() {
     }
 }
 
+async function setQuizDuration() {
+    const duration = parseInt(quizDuration.value);
+    if (!duration || duration <= 0) {
+        adminMessage.textContent = 'Unesite ispravno vreme (u sekundama).';
+        return;
+    }
+    try {
+        const response = await fetch(`/quizzes/${encodeURIComponent(currentQuizId)}/duration`, {
+            method: 'PATCH',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ duration })
+        });
+        const data = await response.json();
+        if (data.success) {
+            adminMessage.textContent = `Vreme kviza je postavljeno na ${duration} sekundi.`;
+        } else {
+            adminMessage.textContent = data.error ? `Greška: ${data.error}` : 'Greška pri postavljanju vremena.';
+        }
+    } catch (error) {
+        adminMessage.textContent = 'Greška pri postavljanju vremena.';
+        console.error(error);
+    }
+}
+
 addQuestionBtn.addEventListener('click', addQuestion);
 saveQuestionsBtn.addEventListener('click', saveQuestions);
 createQuizBtn.addEventListener('click', createQuiz);
 copyQuizBtn.addEventListener('click', copyQuiz);
 renameQuizBtn.addEventListener('click', renameQuiz);
 deleteQuizBtn.addEventListener('click', deleteQuiz);
+setDurationBtn.addEventListener('click', setQuizDuration);
 quizSelect.addEventListener('change', () => setCurrentQuiz(quizSelect.value));
 adminLoginBtn.addEventListener('click', checkAdminPassword);
 logoutBtn.addEventListener('click', logoutAdmin);

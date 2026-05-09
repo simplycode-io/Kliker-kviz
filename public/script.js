@@ -135,6 +135,7 @@ async function loadQuestions() {
         const data = await response.json();
         questions = data.questions || defaultQuestions;
         currentQuizName = data.name || 'Kviz';
+        timeLeft = data.duration || 900; // Use quiz duration from API, default to 15 minutes
         document.getElementById('quiz-name').textContent = currentQuizName;
     } catch (error) {
         console.error('Greška pri učitavanju pitanja:', error);

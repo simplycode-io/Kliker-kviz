@@ -62,6 +62,8 @@ const TRANSLATIONS = {
         noCopyName: 'Unesite naziv za novu kopiju kviza.',
         renameQuiz: 'Preimenuji kviz',
         deleteQuiz: 'Obriši kviz',
+        durationSeconds: 'Vreme u sekundama',
+        setDuration: 'Postavi vreme',
         logout: 'Logout',
         quizLinkText: 'Aktivan kviz: {quizName} — {openLink}'
     },
@@ -128,6 +130,8 @@ const TRANSLATIONS = {
         noCopyName: 'Enter a name for the quiz copy.',
         renameQuiz: 'Rename quiz',
         deleteQuiz: 'Delete quiz',
+        durationSeconds: 'Time in seconds',
+        setDuration: 'Set duration',
         logout: 'Logout',
         quizLinkText: 'Active quiz: {quizName} — {openLink}'
     },
@@ -194,6 +198,8 @@ const TRANSLATIONS = {
         noCopyName: 'Внесете име за копијата на квизот.',
         renameQuiz: 'Преимнувај квиз',
         deleteQuiz: 'Избриши квиз',
+        durationSeconds: 'Време во секунди',
+        setDuration: 'Постави време',
         logout: 'Одјави се',
         quizLinkText: 'Активен квиз: {quizName} — {openLink}'
     }
