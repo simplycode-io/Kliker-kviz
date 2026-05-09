@@ -126,6 +126,17 @@ document.getElementById('admin-link').addEventListener('click', () => window.loc
 
 loadQuestions();
 
+function updateStartDescription() {
+    const minutes = Math.floor(timeLeft / 60);
+    const language = getCurrentLanguage();
+    const descText = language === 'en' 
+        ? `Test your knowledge in ${questions.length} questions in ${minutes} minutes.`
+        : (language === 'mk'
+            ? `Тестирајте го вашето знаење со ${questions.length} прашања за ${minutes} минути.`
+            : `Testirajte svoje znanje u ${questions.length} pitanja za ${minutes} minuta.`);
+    document.getElementById('start-description').textContent = descText;
+}
+
 async function loadQuestions() {
     try {
         const response = await fetch(`/questions?quizId=${encodeURIComponent(currentQuizId)}`);
@@ -139,12 +150,15 @@ async function loadQuestions() {
         document.getElementById('quiz-name').textContent = currentQuizName;
         
         // Update start description with actual duration
-        const minutes = Math.floor(timeLeft / 60);
-        const language = getCurrentLanguage?.() || 'sr';
-        const descText = language === 'en' 
-            ? `Test your knowledge in ${questions.length} questions in ${minutes} minutes.`
-            : `Testirajte svoje znanje u ${questions.length} pitanja za ${minutes} minuta.`;
-        document.getElementById('start-description').textContent = descText;
+        updateStartDescription();
+        
+        // Add language change listener
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect) {
+            languageSelect.addEventListener('change', () => {
+                updateStartDescription();
+            });
+        }
     } catch (error) {
         console.error('Greška pri učitavanju pitanja:', error);
         questions = defaultQuestions;
