@@ -37,8 +37,7 @@ Ova aplikacija je jednostavna web-bazirana kviz aplikacija za testiranje dece za
 - `public/admin.js` - JavaScript logika za admin panel
 - `public/leaderboard.js` - JavaScript logika za rang listu
 - `public/i18n.js` - Internacionalizacija (srpski/engleski)
-- `quizzes.json` - JSON fajl sa kvizovima i pitanjima
-- `results.json` - JSON fajl sa rezultatima takmičara
+- `db.js` - SQLite baza sa kvizovima, pitanjima i rezultatima
 
 ## Upravljanje Kvizovima
 
@@ -48,12 +47,13 @@ Ova aplikacija je jednostavna web-bazirana kviz aplikacija za testiranje dece za
 
 ## Rezultati
 
-- Rezultati se čuvaju u `results.json` fajlu
+- Rezultati se čuvaju u SQLite bazi (`/data/kviz.db`)
 - Dostupni su na rang listi `/leaderboard.html`
 - Sortiraju se po broju tačnih odgovora i vremenu
 
 ## Napomene
 
-- Timer je fiksiran na 15 minuta
+- Timer se može podešavati iz admin panela (default: 15 minuta)
 - Aplikacija podržava više kvizova istovremeno
-- Podrška za srpski i engleski jezik
+- Podrška za srpski, engleski i makedonski jezik
+- Svi podaci se čuvaju u SQLite bazi na Railway-u

@@ -136,24 +136,6 @@ const defaultQuestions = [
   }
 ];
 
-const defaultQuizzes = [
-  {
-    id: 'default',
-    name: 'Opšti kviz',
-    questions: defaultQuestions,
-    createdAt: new Date().toISOString()
-  }
-];
-
-function readJson(filePath, fallback) {
-  // Deprecated - using database instead
-  return fallback;
-}
-
-function writeJson(filePath, data) {
-  // Deprecated - using database instead
-}
-
 function loadQuizzes() {
   return getQuizzes();
 }
@@ -179,12 +161,8 @@ function generateQuizId(name, existingIds) {
   return id;
 }
 
-function ensureFiles() {
-  // Deprecated - database initializes on load
-  initializeDefaultQuiz();
-}
-
-ensureFiles();
+// Initialize default quiz on startup
+initializeDefaultQuiz();
 
 app.use(express.json());
 app.use(express.static('public'));
